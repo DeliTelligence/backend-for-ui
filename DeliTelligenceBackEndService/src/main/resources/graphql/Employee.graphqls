@@ -1,0 +1,21 @@
+type Employee{
+    id: ID!
+    employeeFirstName: String
+    employeeLastName: String
+    employeeLoggedIn: Boolean
+    employeeTitle: String
+    hireDate: String
+}
+
+input EmployeeInputDto {
+    employeeFirstName: String!
+    employeeLastName: String!
+    employeeTitle: EmployeePosition!
+
+}
+
+enum EmployeePosition {
+    EMPLOYEE
+    MANAGER
+    ACCOUNTANT
+}
