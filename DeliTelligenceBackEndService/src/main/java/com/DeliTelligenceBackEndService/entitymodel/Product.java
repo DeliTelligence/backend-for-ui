@@ -1,5 +1,6 @@
 package com.DeliTelligenceBackEndService.entitymodel;
 
+import com.DeliTelligenceBackEndService.enumformodel.ProductType;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +9,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,34 +27,43 @@ public class Product {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id;
 
-    @Column(name = "product_name", nullable = false, length = 100)
+    @Column(name = "PRODUCT_NAME", nullable = false, length = 100)
     private String productName;
 
-    @Column(name = "standard_weight", nullable = false)
+    @Column(name = "STANDARD_WEIGHT", nullable = false)
     private Float standardWeight;
 
-    @Column(name = "product_description", nullable = false)
-    private LocalDate productDescription;
+    @Column(name = "PRODUCT_DESCRIPTION", nullable = false)
+    private String productDescription;
 
-    @Column(name = "product_price", nullable = false)
+    @Column(name = "PRODUCT_PRICE", nullable = false)
     private Float productPrice;
 
-    @Column(name = "product_image", nullable = false)
+    @Column(name = "PRODUCT_IMAGE", nullable = false)
     private byte[] productImage;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "PRODUCT_TYPE", nullable = false)
+    private ProductType productType;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("product-inventory")
     private List<Inventory> inventories;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("product-purchaseOrder")
-    private List<PurchaseOrderDetail> orderDetails;
+    @JsonManagedReference("product-inventoryAdjustment")
+    private List<InventoryAdjustment> adjustments;
 
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private Set<FoodAllergen> productAllergens = new HashSet<FoodAllergen>();
 
-    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
-    private Set<DeliProduct> productFillings = new HashSet<DeliProduct>();
+    @OneToMany(mappedBy = "deliProduct")
+    @JsonManagedReference("product-deliProduct")
+    private List<DeliProduct> deliProducts;
+
+    @OneToMany(mappedBy = "product")
+    @JsonManagedReference("product-productUsed")
+    private List<DeliProduct> productsUsed;
 
 
 }

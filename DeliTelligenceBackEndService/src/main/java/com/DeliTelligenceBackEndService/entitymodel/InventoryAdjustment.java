@@ -26,21 +26,36 @@ public class InventoryAdjustment {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonBackReference(value = "inventory-adjustment")
-    @JoinColumn(name = "inventory_id", nullable = false)
+    @JoinColumn(name = "INVENTORY_ID", nullable = false)
     private Inventory inventory;
 
-    @Column(name = "adjustment_type", nullable = false, length = 200)
+    @Column(name = "WEIGHT_PER_BOX", nullable = false, length = 200)
+    private float weightPerBox;
+
+    @Column(name = "UNIT_COST", nullable = false, length = 200)
+    private float unitCost;
+
+    @Column(name = "QUANTITY_OF_BOX", nullable = false, length = 200)
+    private int quantityOfBox;
+
+    @Column(name = "ADJUSTMENT_TYPE", nullable = false, length = 200)
     private String adjustmentType;
 
-    @Column(name = "reason", nullable = false, length = 1000)
+    @Column(name = "REASON", nullable = false, length = 1000)
     private String reason;
 
-    @Column(name = "date_of_adjustment", nullable = false)
+    @Column(name = "DATE_OF_ADJUSTMENT", nullable = false)
     private LocalDate dateOfAdjustment;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PURCHASE_ORDER_DETAIL_ID", referencedColumnName = "PURCHASE_ORDER_DETAIL_ID")
-    private PurchaseOrderDetail purchaseOrderDetail;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference(value = "purchaseOrder-inventoryAdjustment")
+    @JoinColumn(name = "PURCHASE_ORDER_ID", nullable = false)
+    private PurchaseOrder purchaseOrder;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference(value = "product-inventoryAdjustment")
+    @JoinColumn(name = "PRODUCT_ID", nullable = false)
+    private Product product;
 
 
 }

@@ -26,19 +26,20 @@ public class Employee {
     @JdbcTypeCode(SqlTypes.UUID) // Change from SqlTypes.VARCHAR to SqlTypes.UUID
     private UUID id;
 
-    @Column(name = "employee_first_name", nullable = false, length = 50)
+    @Column(name = "EMPLOYEE_FIRST_NAME", nullable = false, length = 50)
     private String employeeFirstName;
 
-    @Column(name = "employee_last_name", nullable = false, length = 50)
+    @Column(name = "EMPLOYEE_LAST_NAME", nullable = false, length = 50)
     private String employeeLastName;
 
-    @Column(name = "employee_logged_in", nullable = false)
+    @Column(name = "EMPLOYEE_LOGGED_IN", nullable = false)
     private Boolean employeeLoggedIn = false;
 
-    @Column(name = "employee_title", nullable = false, length = 50)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "EMPLOYEE_TITLE", nullable = false, length = 50)
     private EmployeeTitle employeeTitle;
 
-    @Column(name = "hire_date", nullable = false)
+    @Column(name = "HIRE_DATE", nullable = false)
     private LocalDate hireDate;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)

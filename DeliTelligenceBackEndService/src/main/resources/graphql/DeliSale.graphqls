@@ -1,0 +1,30 @@
+type DeliSale{
+    id: ID!
+    employeeId: ID
+    salePrice: Float
+    saleDate: String
+    saleWeight: Float
+    saleTime: String
+    wastePerSale: Float
+    wastePerSaleValue: Float
+    differenceWeight: Float
+    saleType: SaleType
+    saleQuantity: Int
+}
+
+input DeliSaleInputDto {
+    employeeId: ID!
+    salePrice: Float!
+    saleWeight: Float!
+    wastePerSale: Float!
+    wastPerSaleValue: Float!
+    differenceWeight: Float!
+    saleType: SaleType!
+    saleQuantity: Int!
+
+}
+
+enum SaleType {
+    WEIGHED
+    NOT_WEIGHED
+}
