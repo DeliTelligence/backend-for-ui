@@ -1,6 +1,7 @@
 package com.DeliTelligenceBackEndService.entitymodel;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,38 +9,45 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "tbl_deli_product")
+@Table(name = "TBL_DELI_PRODUCT")
 @NoArgsConstructor
 @AllArgsConstructor
 public class DeliProduct {
 
-    @Id()
+    @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "DELI_PRODUCT_ID",insertable = false, updatable = false)
+    @Column(name = "MADE_DELI_PRODUCT_ID", insertable = false, updatable = false)
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id;
 
-    @Column(name = "theoretical_weight", nullable = false)
-    private Float theoreticalWeight;
+    @ManyToOne
+    @JsonBackReference("product-deliProduct")
+    @JoinColumn(name = "DELI_PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
+    private Product deliProduct;
 
-    @Column(name = "weight_to_price", nullable = false)
-    private Boolean weightToPrice = false;
+    @ManyToOne
+    @JsonBackReference("product-productUsed")
+    @JoinColumn(name = "PRODUCT_ID", nullable = false)
+    private Product product;
 
-    @OneToOne(mappedBy = "deliProduct")
+    @Column(name = "COMBINED_WEIGHT", nullable = false)
+    private Float combinedWeight;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SALE_ID", unique = true)
+    @JsonBackReference
     private DeliSale sale;
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "TBL_DELI_FILLING",
-            joinColumns = @JoinColumn(name = "DELI_PRODUCT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID")
-    )
-    private Set<Product> products = new HashSet<Product>();
+    @Column(name = "DELI_PRODUCT_PRICE", nullable = false)
+    private Float deliProductPrice;
 
+    @Column(name = "DELI_PRODUCT_QUANTITY", nullable = false)
+    private Integer deliProductQuantity;
+
+    @Column(name = "WEIGH_TO_PRICE", nullable = false)
+    private boolean weightToPrice;
 }

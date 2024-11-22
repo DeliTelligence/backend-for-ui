@@ -27,22 +27,26 @@ public class PurchaseOrder {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id;
 
-    @Column(name = "order_price", nullable = false)
+    @Column(name = "ORDER_PRICE", nullable = false)
     private Float orderPrice;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonBackReference(value = "supplier-purchaseOrder")
-    @JoinColumn(name = "supplier_id", nullable = false)
+    @JoinColumn(name = "SUPPLIER_ID", nullable = false)
     private Supplier supplier;
 
-    @Column(name = "order_date", nullable = false)
-    private LocalDate orderDate;
+    @Column(name = "EXPECTED_DATE", nullable = false)
+    private LocalDate expectedDate;
 
-    @Column(name = "order_status", nullable = false)
+    @Column(name = "RECEIVED_DATE", nullable = false)
+    private LocalDate receivedDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ORDER_STATUS", nullable = false)
     private OrderStatus orderStatus;
 
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("purchaseOrder-purchaseOrderDetail")
-    private List<PurchaseOrderDetail> orderDetails;
+    @JsonManagedReference("purchaseOrder-inventoryAdjustment")
+    private List<InventoryAdjustment> adjustments;
 
 }

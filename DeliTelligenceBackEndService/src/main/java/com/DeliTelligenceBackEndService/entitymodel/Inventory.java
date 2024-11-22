@@ -26,20 +26,20 @@ public class Inventory {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id;
 
-    @Column(name = "inventory_total_boxes", nullable = false)
+    @Column(name = "INVENTORY_TOTAL_BOXES", nullable = false)
     private Integer inventoryTotalBoxes;
 
-    @Column(name = "inventory_value", nullable = false)
+    @Column(name = "INVENTORY_VALUE", nullable = false)
     private Float inventoryValue;
 
-    @Column(name = "inventory_expiration_date", nullable = false)
+    @Column(name = "INVENTORY_EXPIRATION_DATE", nullable = false)
     private LocalDate inventoryExpirationDate;
 
-    @Column(name = "location", nullable = false, length = 200)
+    @Column(name = "LOCATION", nullable = false, length = 200)
     private String location;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "PRODUCT_ID", nullable = false)
     @JsonBackReference(value = "product-inventory")
     private Product product;
 

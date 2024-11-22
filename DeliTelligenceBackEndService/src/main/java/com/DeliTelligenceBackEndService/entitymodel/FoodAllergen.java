@@ -24,10 +24,10 @@ public class FoodAllergen {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id;
 
-    @Column(name = "allergen_description", length = 1000)
+    @Column(name = "ALLERGEN_DESCRIPTION", length = 1000)
     private String allergenDescription;
 
-    @Column(name = "allergen_name", length = 200)
+    @Column(name = "ALLERGEN_NAME", length = 200)
     private String allergenName;
 
     @JsonIgnore

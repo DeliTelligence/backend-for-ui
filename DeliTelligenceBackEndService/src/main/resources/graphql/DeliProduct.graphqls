@@ -1,0 +1,18 @@
+type DeliProduct{
+    id: ID!
+    products: [Product]
+    saleId: [DeliSale]
+    combinedWeight: Float
+    deliProductPrice: Float
+    deliProductQuantity: Int
+    weightToPrice: Boolean
+}
+
+input DeliProductInput{
+    products: [String]
+    saleId: ID
+    combinedWeight: Float
+    deliProductPrice: Float
+    deliProductQuantity: Int
+    weightToPrice: Boolean
+}

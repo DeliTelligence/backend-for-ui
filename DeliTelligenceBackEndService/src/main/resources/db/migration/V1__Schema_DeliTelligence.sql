@@ -9,13 +9,7 @@ CREATE TABLE TBL_EMPLOYEE (
 
 
 
-CREATE TABLE TBL_DELI_PRODUCT (
-                                  DELI_PRODUCT_ID UUID PRIMARY KEY,
-                                  THEORETICAL_WEIGHT FLOAT(2) NOT NULL,
-                                  WEIGHT_TO_PRICE BOOLEAN NOT NULL
 
-
-);
 CREATE TABLE TBL_DELI_SALES (
                                 SALE_ID UUID PRIMARY KEY,
                                 EMPLOYEE_ID UUID NOT NULL,
@@ -23,13 +17,11 @@ CREATE TABLE TBL_DELI_SALES (
                                 SALE_DATE DATE NOT NULL,
                                 SALE_WEIGHT FLOAT(2) NOT NULL,
                                 SALE_TIME TIMESTAMP NOT NULL,
-                                DELI_PRODUCT_ID UUID NOT NULL,
                                 WASTE_PER_SALE FLOAT(2) NOT NULL,
                                 WASTE_PER_SALE_VALUE FLOAT(2) NOT NULL,
                                 DIFFERENCE_WEIGHT FLOAT(2) NOT NULL,
                                 SALE_TYPE VARCHAR(50) NOT NULL,
                                 QUANTITY INTEGER,
-                                FOREIGN KEY (DELI_PRODUCT_ID) REFERENCES TBL_DELI_PRODUCT(DELI_PRODUCT_ID),
                                 FOREIGN KEY (EMPLOYEE_ID) REFERENCES TBL_EMPLOYEE(EMPLOYEE_ID)
 
 
@@ -41,16 +33,26 @@ CREATE TABLE TBL_PRODUCT (
                              PRODUCT_ID UUID PRIMARY KEY,
                              PRODUCT_NAME VARCHAR(100) NOT NULL,
                              STANDARD_WEIGHT FLOAT(2) NOT NULL,
-                             PRODUCT_DESCRIPTION DATE NOT NULL,
+                             PRODUCT_DESCRIPTION VARCHAR(1000) NOT NULL,
                              PRODUCT_PRICE FLOAT(2) NOT NULL,
+                             PRODUCT_TYPE VARCHAR(100) NOT NULL,
                              PRODUCT_IMAGE bytea NOT NULL
 
+
 );
-CREATE TABLE TBL_DELI_FILLING (
-                                  DELI_PRODUCT_ID UUID NOT NULL,
+
+CREATE TABLE TBL_DELI_PRODUCT (
+                                  MADE_DELI_PRODUCT_ID UUID PRIMARY KEY,
+                                  DELI_PRODUCT_ID UUID,
                                   PRODUCT_ID UUID NOT NULL,
-                                  FOREIGN KEY (DELI_PRODUCT_ID) REFERENCES TBL_DELI_PRODUCT(DELI_PRODUCT_ID),
-                                  FOREIGN KEY (PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID)
+                                  COMBINED_WEIGHT FLOAT NOT NULL,
+                                  SALE_ID UUID,
+                                  DELI_PRODUCT_PRICE FLOAT NOT NULL,
+                                  DELI_PRODUCT_QUANTITY INTEGER NOT NULL,
+                                  WEIGH_TO_PRICE BOOLEAN NOT NULL,
+                                  FOREIGN KEY (DELI_PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID),
+                                  FOREIGN KEY (PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID),
+                                  FOREIGN KEY (SALE_ID) REFERENCES TBL_DELI_SALES(SALE_ID)
 );
 
 
@@ -96,37 +98,29 @@ CREATE TABLE TBL_PURCHASE_ORDER (
                                     PURCHASE_ORDER_ID UUID PRIMARY KEY,
                                     ORDER_PRICE FLOAT(2) NOT NULL,
                                     SUPPLIER_ID UUID NOT NULL,
-                                    ORDER_DATE DATE NOT NULL,
+                                    EXPECTED_DATE DATE NOT NULL,
+                                    RECEIVED_DATE DATE NOT NULL,
                                     ORDER_STATUS BOOLEAN NOT NULL,
                                     FOREIGN KEY (SUPPLIER_ID) REFERENCES TBL_SUPPLIER(SUPPLIER_ID)
 
 
 );
 
-CREATE TABLE TBL_PURCHASE_ORDER_DETAIL (
-                                           PURCHASE_ORDER_DETAIL_ID UUID PRIMARY KEY,
-                                           PRODUCT_ID UUID NOT NULL,
-                                           PURCHASE_ORDER_ID UUID NOT NULL,
-                                           WEIGHT_PER_BOX FLOAT(2) NOT NULL,
-                                           UNIT_PRICE FLOAT(2) NOT NULL,
-                                           QUANTITY_OF_BOX INTEGER NOT NULL,
-                                           FOREIGN KEY (PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID),
-                                           FOREIGN KEY (PURCHASE_ORDER_ID) REFERENCES TBL_PURCHASE_ORDER(PURCHASE_ORDER_ID)
 
-
-
-);
 
 CREATE TABLE TBL_INVENTORY_ADJUSTMENT (
                                           ADJUSTMENT_ID UUID PRIMARY KEY,
                                           INVENTORY_ID UUID NOT NULL,
+                                          PURCHASE_ORDER_ID UUID NOT NULL,
+                                          PRODUCT_ID UUID NOT NULL,
+                                          WEIGHT_PER_BOX FLOAT NOT NULL,
+                                          UNIT_COST FLOAT NOT NULL,
+                                          QUANTITY_OF_BOX INT NOT NULL,
                                           ADJUSTMENT_TYPE VARCHAR(200) NOT NULL,
                                           REASON VARCHAR(1000) NOT NULL,
                                           DATE_OF_ADJUSTMENT DATE NOT NULL,
-                                          PURCHASE_ORDER_DETAIL_ID UUID NOT NULL,
                                           FOREIGN KEY (INVENTORY_ID) REFERENCES TBL_INVENTORY(INVENTORY_ID),
-                                          FOREIGN KEY (PURCHASE_ORDER_DETAIL_ID) REFERENCES TBL_PURCHASE_ORDER_DETAIL(PURCHASE_ORDER_DETAIL_ID)
-
-
+                                          FOREIGN KEY (PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID),
+                                          FOREIGN KEY (PURCHASE_ORDER_ID) REFERENCES TBL_PURCHASE_ORDER(PURCHASE_ORDER_ID)
 
 );

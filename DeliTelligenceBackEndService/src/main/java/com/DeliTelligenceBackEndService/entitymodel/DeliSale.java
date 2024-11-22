@@ -2,6 +2,7 @@ package com.DeliTelligenceBackEndService.entitymodel;
 
 import com.DeliTelligenceBackEndService.enumformodel.SaleType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,35 +32,36 @@ public class DeliSale {
     @JoinColumn(name = "EMPLOYEE_ID")
     private Employee employee;
 
-    @Column(name = "sale_price", nullable = false)
+    @Column(name = "SALE_PRICE", nullable = false)
     private Float salePrice;
 
-    @Column(name = "sale_date", nullable = false)
+    @Column(name = "SALE_DATE", nullable = false)
     private LocalDate saleDate;
 
-    @Column(name = "sale_weight", nullable = false)
+    @Column(name = "SALE_WEIGHT", nullable = false)
     private Float saleWeight;
 
-    @Column(name = "sale_time", nullable = false)
+    @Column(name = "SALE_TIME", nullable = false)
     private Instant saleTime;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "DELI_PRODUCT_ID", referencedColumnName = "DELI_PRODUCT_ID")
-    private DeliProduct deliProduct;
-
-    @Column(name = "waste_per_sale", nullable = false)
+    @Column(name = "WASTE_PER_SALE", nullable = false)
     private Float wastePerSale;
 
-    @Column(name = "waste_per_sale_value", nullable = false)
+    @Column(name = "WASTE_PER_SALE_VALUE", nullable = false)
     private Float wastePerSaleValue;
 
-    @Column(name = "difference_weight", nullable = false)
+    @Column(name = "DIFFERENCE_WEIGHT", nullable = false)
     private Float differenceWeight;
 
-    @Column(name = "sale_type", nullable = false, length = 50)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "SALE_TYPE", nullable = false, length = 50)
     private SaleType saleType;
 
-    @Column(name = "quantity")
+    @Column(name = "QUANTITY")
     private Integer quantity;
+
+    @OneToOne(mappedBy = "sale", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private DeliProduct deliProduct;
 
 }

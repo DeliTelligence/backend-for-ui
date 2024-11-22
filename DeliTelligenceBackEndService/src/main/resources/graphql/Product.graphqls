@@ -1,0 +1,23 @@
+type Product{
+    id: ID!
+    productName: String
+    standardWeight: Float
+    productDescription: String
+    productPrice: Float
+    productType: ProductType
+    productImage: String  # Base64 encoded image data
+}
+
+type ProductFetchDto{
+    productName: String
+    standardWeight: Float
+    productPrice: Float
+    productImage: String# Base64 encoded image data
+    productType: String
+}
+
+enum ProductType {
+    HOT_FOOD
+    COLD_FOOD
+    BREAD
+}

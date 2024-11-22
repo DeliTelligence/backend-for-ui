@@ -3,6 +3,7 @@ package com.DeliTelligenceBackEndService.service;
 import com.DeliTelligenceBackEndService.entitymodel.Employee;
 import com.DeliTelligenceBackEndService.entitymodel.repository.EmployeeRepository;
 import com.DeliTelligenceBackEndService.entitymodeldto.EmployeeInputDto;
+import com.DeliTelligenceBackEndService.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,11 @@ public class EmployeeService {
 
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
+    }
+
+    public Employee getEmployeeById(UUID id) {
+        return employeeRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Employee", "ID", id));
     }
 
 
