@@ -17,26 +17,55 @@ CREATE TABLE TBL_DELI_SALES (
                                 SALE_DATE DATE NOT NULL,
                                 SALE_WEIGHT FLOAT(2) NOT NULL,
                                 SALE_TIME TIMESTAMP NOT NULL,
-                                WASTE_PER_SALE FLOAT(2) NOT NULL,
                                 WASTE_PER_SALE_VALUE FLOAT(2) NOT NULL,
                                 DIFFERENCE_WEIGHT FLOAT(2) NOT NULL,
                                 SALE_TYPE VARCHAR(50) NOT NULL,
                                 QUANTITY INTEGER,
+                                HAND_MADE BOOLEAN NOT NULL,
                                 FOREIGN KEY (EMPLOYEE_ID) REFERENCES TBL_EMPLOYEE(EMPLOYEE_ID)
 
 
 
 );
 
+CREATE TABLE TBL_STANDARD_WEIGHT (
+                                     STANDARD_WEIGHT_ID UUID PRIMARY KEY,
+                                     STANDARD_TYPE VARCHAR(300) NOT NULL
+);
+CREATE TABLE TBL_INVENTORY (
+                               INVENTORY_ID UUID PRIMARY KEY,
+                               TOTAL_WEIGHT FLOAT NOT NULL,
+                               INVENTORY_VALUE FLOAT(2) NOT NULL,
+                               INVENTORY_EXPIRATION_DATE DATE NOT NULL,
+                               LOCATION VARCHAR(200) NOT NULL
+
+
+);
+
+
 
 CREATE TABLE TBL_PRODUCT (
                              PRODUCT_ID UUID PRIMARY KEY,
+                             INVENTORY_ID UUID,
                              PRODUCT_NAME VARCHAR(100) NOT NULL,
-                             STANDARD_WEIGHT FLOAT(2) NOT NULL,
                              PRODUCT_DESCRIPTION VARCHAR(1000) NOT NULL,
                              PRODUCT_PRICE FLOAT(2) NOT NULL,
                              PRODUCT_TYPE VARCHAR(100) NOT NULL,
-                             PRODUCT_IMAGE bytea NOT NULL
+                             PRODUCT_IMAGE bytea NOT NULL,
+                             FOREIGN KEY (INVENTORY_ID) REFERENCES TBL_INVENTORY(INVENTORY_ID)
+
+
+
+
+);
+
+CREATE TABLE TBL_STANDARD_WEIGHT_PRODUCT (
+                                             STANDARD_WEIGHT_PRODUCT_ID UUID NOT NULL,
+                                             STANDARD_WEIGHT FLOAT NOT NULL,
+                                             STANDARD_WEIGHT_ID UUID NOT NULL,
+                                             PRODUCT_ID UUID NOT NULL,
+                                             FOREIGN KEY (STANDARD_WEIGHT_ID) REFERENCES TBL_STANDARD_WEIGHT(STANDARD_WEIGHT_ID),
+                                             FOREIGN KEY (PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID)
 
 
 );
@@ -44,16 +73,21 @@ CREATE TABLE TBL_PRODUCT (
 CREATE TABLE TBL_DELI_PRODUCT (
                                   MADE_DELI_PRODUCT_ID UUID PRIMARY KEY,
                                   DELI_PRODUCT_ID UUID,
-                                  PRODUCT_ID UUID NOT NULL,
                                   COMBINED_WEIGHT FLOAT NOT NULL,
+                                  PORTION_TYPE VARCHAR(300) NOT NULL,
                                   SALE_ID UUID,
-                                  DELI_PRODUCT_PRICE FLOAT NOT NULL,
-                                  DELI_PRODUCT_QUANTITY INTEGER NOT NULL,
-                                  WEIGH_TO_PRICE BOOLEAN NOT NULL,
                                   FOREIGN KEY (DELI_PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID),
                                   FOREIGN KEY (PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID),
                                   FOREIGN KEY (SALE_ID) REFERENCES TBL_DELI_SALES(SALE_ID)
 );
+
+CREATE TABLE TBL_INGREDIENT (
+                                INGREDIENT_ID UUID PRIMARY KEY,
+                                MADE_DELI_PRODUCT_ID UUID NOT NULL,
+                                PRODUCT_ID UUID NOT NULL,
+                                FOREIGN KEY (MADE_DELI_PRODUCT_ID) REFERENCES TBL_DELI_PRODUCT(MADE_DELI_PRODUCT_ID),
+                                FOREIGN KEY (PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID)
+)
 
 
 
@@ -75,17 +109,6 @@ CREATE TABLE TBL_FOOD_ALLERGENS_DETAIL (
 
 );
 
-CREATE TABLE TBL_INVENTORY (
-                               INVENTORY_ID UUID PRIMARY KEY,
-                               INVENTORY_TOTAL_BOXES INTEGER NOT NULL,
-                               INVENTORY_VALUE FLOAT(2) NOT NULL,
-                               INVENTORY_EXPIRATION_DATE DATE NOT NULL,
-                               LOCATION VARCHAR(200) NOT NULL,
-                               PRODUCT_ID UUID NOT NULL,
-                               FOREIGN KEY (PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID)
-
-
-);
 
 CREATE TABLE TBL_SUPPLIER (
                               SUPPLIER_ID UUID PRIMARY KEY,
@@ -113,9 +136,8 @@ CREATE TABLE TBL_INVENTORY_ADJUSTMENT (
                                           INVENTORY_ID UUID NOT NULL,
                                           PURCHASE_ORDER_ID UUID NOT NULL,
                                           PRODUCT_ID UUID NOT NULL,
-                                          WEIGHT_PER_BOX FLOAT NOT NULL,
+                                          WEIGHT_ADJUSTMENT FLOAT NOT NULL,
                                           UNIT_COST FLOAT NOT NULL,
-                                          QUANTITY_OF_BOX INT NOT NULL,
                                           ADJUSTMENT_TYPE VARCHAR(200) NOT NULL,
                                           REASON VARCHAR(1000) NOT NULL,
                                           DATE_OF_ADJUSTMENT DATE NOT NULL,

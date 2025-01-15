@@ -23,11 +23,11 @@ public class Inventory {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "INVENTORY_ID",insertable = false, updatable = false)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @JdbcTypeCode(SqlTypes.UUID)
     private UUID id;
 
-    @Column(name = "INVENTORY_TOTAL_BOXES", nullable = false)
-    private Integer inventoryTotalBoxes;
+    @Column(name = "TOTAL_WEIGHT", nullable = false)
+    private float totalWeight;
 
     @Column(name = "INVENTORY_VALUE", nullable = false)
     private Float inventoryValue;
@@ -38,10 +38,9 @@ public class Inventory {
     @Column(name = "LOCATION", nullable = false, length = 200)
     private String location;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "PRODUCT_ID", nullable = false)
-    @JsonBackReference(value = "product-inventory")
-    private Product product;
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("product-inventory")
+    private List<Product> products;
 
     @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("inventory-adjustment")

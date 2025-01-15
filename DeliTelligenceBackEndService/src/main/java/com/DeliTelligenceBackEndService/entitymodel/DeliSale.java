@@ -24,7 +24,7 @@ public class DeliSale {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "SALE_ID",insertable = false, updatable = false)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @JdbcTypeCode(SqlTypes.UUID)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -44,9 +44,6 @@ public class DeliSale {
     @Column(name = "SALE_TIME", nullable = false)
     private Instant saleTime;
 
-    @Column(name = "WASTE_PER_SALE", nullable = false)
-    private Float wastePerSale;
-
     @Column(name = "WASTE_PER_SALE_VALUE", nullable = false)
     private Float wastePerSaleValue;
 
@@ -57,11 +54,14 @@ public class DeliSale {
     @Column(name = "SALE_TYPE", nullable = false, length = 50)
     private SaleType saleType;
 
-    @Column(name = "QUANTITY")
-    private Integer quantity;
+    @Column(name="HAND_MADE", nullable = false)
+    private Boolean handMade;
 
-    @OneToOne(mappedBy = "sale", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @Column(name = "QUANTITY")
+    private int quantity;
+
+    @OneToOne(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("DeliProduct-DeliSale")
     private DeliProduct deliProduct;
 
 }

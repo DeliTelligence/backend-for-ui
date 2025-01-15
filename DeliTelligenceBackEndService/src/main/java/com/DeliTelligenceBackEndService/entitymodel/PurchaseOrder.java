@@ -24,7 +24,7 @@ public class PurchaseOrder {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "PURCHASE_ORDER_ID",insertable = false, updatable = false)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @JdbcTypeCode(SqlTypes.UUID)
     private UUID id;
 
     @Column(name = "ORDER_PRICE", nullable = false)

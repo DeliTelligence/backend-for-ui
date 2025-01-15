@@ -1,5 +1,6 @@
 package com.DeliTelligenceBackEndService.entitymodeldto;
 
+import com.DeliTelligenceBackEndService.enumformodel.PortionType;
 import lombok.Data;
 
 import java.util.List;
@@ -7,10 +8,9 @@ import java.util.UUID;
 
 @Data
 public class DeliProductInputDto {
-    private List<String> products;
-    private UUID employeeId;
+    private List<ProductInputDto> productInputDtos;
+    private ProductInputDto productInputDto;
     private Float combinedWeight;
-    private Float deliProductPrice;
-    private Integer deliProductQuantity;
-    private Boolean weightToPrice;
+    private PortionType portionType;
+
 }

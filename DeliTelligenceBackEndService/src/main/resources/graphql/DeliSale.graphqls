@@ -13,18 +13,21 @@ type DeliSale{
 }
 
 input DeliSaleInputDto {
-    employeeId: ID!
     salePrice: Float!
     saleWeight: Float!
     wastePerSale: Float!
-    wastPerSaleValue: Float!
+    wastePerSaleValue: Float!
     differenceWeight: Float!
     saleType: SaleType!
-    saleQuantity: Int!
+    quantity: Int!
+    deliProductInputDto: DeliProductInput!
+    handMade: Boolean!
+    employeeId: ID
 
 }
 
 enum SaleType {
-    WEIGHED
-    NOT_WEIGHED
+    COLD_FOOD,
+    HOT_FOOD,
+    SALAD
 }

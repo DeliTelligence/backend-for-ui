@@ -9,7 +9,7 @@ type Query {
 
 type Mutation {
     createEmployee(input: EmployeeInputDto): Employee
-    createSale(input: DeliSaleInputDto): DeliSale
+    createSale(input: DeliSaleInputDto): String
     deleteEmployee(id: ID!): String!
 
 }
