@@ -22,7 +22,7 @@ input DeliSaleInputDto {
     quantity: Int!
     deliProductInputDto: DeliProductInput!
     handMade: Boolean!
-    employeeId: ID
+    employeeId: ID!
 
 }
 

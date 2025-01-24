@@ -46,4 +46,5 @@ public class Inventory {
     @JsonManagedReference("inventory-adjustment")
     private List<InventoryAdjustment> adjustments;
 
+
 }

@@ -1,5 +1,6 @@
 package com.DeliTelligenceBackEndService.entitymodel;
 
+import com.DeliTelligenceBackEndService.enumformodel.AdjustmentType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,10 +34,11 @@ public class InventoryAdjustment {
     private float weightPerBox;
 
     @Column(name = "UNIT_COST", nullable = false, length = 200)
-    private float unitCost;
+    private float costPerBox;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "ADJUSTMENT_TYPE", nullable = false, length = 200)
-    private String adjustmentType;
+    private AdjustmentType adjustmentType;
 
     @Column(name = "REASON", nullable = false, length = 1000)
     private String reason;
@@ -45,9 +47,9 @@ public class InventoryAdjustment {
     private LocalDate dateOfAdjustment;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JsonBackReference(value = "purchaseOrder-inventoryAdjustment")
-    @JoinColumn(name = "PURCHASE_ORDER_ID", nullable = false)
-    private PurchaseOrder purchaseOrder;
+    @JsonBackReference(value = "supplier-adjustments")
+    @JoinColumn(name = "SUPPLIER_ID", nullable = false)
+    private Supplier supplier;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonBackReference(value = "product-inventoryAdjustment")

@@ -30,7 +30,13 @@ public interface ProductMapper {
     ProductInputDto toProductInputDto(Product product);
 
 
+    default Product map(String productName, @Context ProductService productService) {
+        if (productName == null) {
+            return null;
+        }
+        return (productService.getProductByNameReal(productName));
 
+    }
 
     // Image mapping
     default String map(byte[] productImage) {

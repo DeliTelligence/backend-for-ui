@@ -1,0 +1,26 @@
+type InventoryAdjustment {
+    id: ID!
+    weightPerBox: Float
+    unitCost: Float
+    adjustmentType: AdjustmentType
+    reason: String
+    dateOfAdjustment: String
+    supplier: Supplier
+
+}
+
+input InventoryAdjustmentInputDto{
+    supplierName: String!
+    productName: String!
+    orderWeight: Float!
+    costPerBox: Float!
+    adjustmentType: AdjustmentType!
+    reason: String!
+
+}
+
+enum AdjustmentType {
+    WASTE,
+    DELIVERY,
+    OTHER
+}

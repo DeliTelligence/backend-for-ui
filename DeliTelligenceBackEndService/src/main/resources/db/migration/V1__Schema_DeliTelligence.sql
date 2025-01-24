@@ -77,7 +77,6 @@ CREATE TABLE TBL_DELI_PRODUCT (
                                   PORTION_TYPE VARCHAR(300) NOT NULL,
                                   SALE_ID UUID,
                                   FOREIGN KEY (DELI_PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID),
-                                  FOREIGN KEY (PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID),
                                   FOREIGN KEY (SALE_ID) REFERENCES TBL_DELI_SALES(SALE_ID)
 );
 
@@ -87,7 +86,7 @@ CREATE TABLE TBL_INGREDIENT (
                                 PRODUCT_ID UUID NOT NULL,
                                 FOREIGN KEY (MADE_DELI_PRODUCT_ID) REFERENCES TBL_DELI_PRODUCT(MADE_DELI_PRODUCT_ID),
                                 FOREIGN KEY (PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID)
-)
+);
 
 
 
@@ -113,19 +112,9 @@ CREATE TABLE TBL_FOOD_ALLERGENS_DETAIL (
 CREATE TABLE TBL_SUPPLIER (
                               SUPPLIER_ID UUID PRIMARY KEY,
                               SUPPLIER_NAME VARCHAR(200) NOT NULL,
-                              SUPPLIER_LOCATION VARCHAR(200) NOT NULL
-
-);
-
-CREATE TABLE TBL_PURCHASE_ORDER (
-                                    PURCHASE_ORDER_ID UUID PRIMARY KEY,
-                                    ORDER_PRICE FLOAT(2) NOT NULL,
-                                    SUPPLIER_ID UUID NOT NULL,
-                                    EXPECTED_DATE DATE NOT NULL,
-                                    RECEIVED_DATE DATE NOT NULL,
-                                    ORDER_STATUS BOOLEAN NOT NULL,
-                                    FOREIGN KEY (SUPPLIER_ID) REFERENCES TBL_SUPPLIER(SUPPLIER_ID)
-
+                              SUPPLIER_LOCATION VARCHAR(500) NOT NULL,
+                              SUPPLIER_NUMBER VARCHAR(200) NOT NULL,
+                              SUPPLIER_WEBSITE VARCHAR(500) NOT NULL
 
 );
 
@@ -134,15 +123,15 @@ CREATE TABLE TBL_PURCHASE_ORDER (
 CREATE TABLE TBL_INVENTORY_ADJUSTMENT (
                                           ADJUSTMENT_ID UUID PRIMARY KEY,
                                           INVENTORY_ID UUID NOT NULL,
-                                          PURCHASE_ORDER_ID UUID NOT NULL,
                                           PRODUCT_ID UUID NOT NULL,
+                                          SUPPLIER_ID UUID NOT NULL,
                                           WEIGHT_ADJUSTMENT FLOAT NOT NULL,
                                           UNIT_COST FLOAT NOT NULL,
                                           ADJUSTMENT_TYPE VARCHAR(200) NOT NULL,
-                                          REASON VARCHAR(1000) NOT NULL,
+                                          REASON VARCHAR(1000),
                                           DATE_OF_ADJUSTMENT DATE NOT NULL,
                                           FOREIGN KEY (INVENTORY_ID) REFERENCES TBL_INVENTORY(INVENTORY_ID),
                                           FOREIGN KEY (PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID),
-                                          FOREIGN KEY (PURCHASE_ORDER_ID) REFERENCES TBL_PURCHASE_ORDER(PURCHASE_ORDER_ID)
+                                          FOREIGN KEY (SUPPLIER_ID) REFERENCES TBL_SUPPLIER(SUPPLIER_ID)
 
 );

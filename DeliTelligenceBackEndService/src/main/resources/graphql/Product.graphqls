@@ -27,7 +27,7 @@ type StandardWeightDto{
 }
 
 input ProductInputDto{
-    id: String
+    id: String!
 
 }
 

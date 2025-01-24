@@ -1,0 +1,12 @@
+type Supplier{
+    supplierId: ID!
+    supplierName: String
+    supplierNumber: Float
+    supplierLocation: String
+}
+
+type SupplierFetchDto{
+    supplierName: String!
+    supplierWebsite: String
+    supplierNumber: String
+}

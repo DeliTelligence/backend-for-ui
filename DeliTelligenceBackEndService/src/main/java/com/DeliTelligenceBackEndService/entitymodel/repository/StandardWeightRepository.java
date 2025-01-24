@@ -1,6 +1,5 @@
 package com.DeliTelligenceBackEndService.entitymodel.repository;
 
-import com.DeliTelligenceBackEndService.entitymodel.PurchaseOrder;
 import com.DeliTelligenceBackEndService.entitymodel.StandardWeight;
 import org.springframework.data.jpa.repository.JpaRepository;
 

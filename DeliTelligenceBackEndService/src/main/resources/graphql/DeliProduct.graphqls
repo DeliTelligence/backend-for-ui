@@ -9,10 +9,10 @@ type DeliProduct{
 }
 
 input DeliProductInput{
-    productInputDtos: [ProductInputDto]
-    productInputDto: ProductInputDto
-    combinedWeight: Float
-    portionType: PortionType
+    productInputDtos: [ProductInputDto]!
+    productInputDto: ProductInputDto!
+    combinedWeight: Float!
+    portionType: PortionType!
 
 }
 

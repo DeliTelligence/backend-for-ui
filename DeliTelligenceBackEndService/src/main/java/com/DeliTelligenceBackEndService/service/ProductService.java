@@ -8,6 +8,7 @@ import com.DeliTelligenceBackEndService.entitymodel.repository.ProductRepository
 import com.DeliTelligenceBackEndService.entitymodeldto.ProductFetchDto;
 import com.DeliTelligenceBackEndService.enumformodel.ProductType;
 import com.DeliTelligenceBackEndService.exception.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -91,5 +92,9 @@ public class ProductService {
             productFetchDtos.add(productMapper.toProductFetchDto(product));
 
         }
-        return productFetchDtos;    }
+        return productFetchDtos;
+    }
+    public Product getProductByNameReal(String productName) {
+        return productRepository.getProductByProductName(productName).orElseThrow(() -> new EntityNotFoundException("Product not found"));
+    }
 }

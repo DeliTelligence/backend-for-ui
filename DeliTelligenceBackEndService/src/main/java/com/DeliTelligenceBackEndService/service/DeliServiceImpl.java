@@ -41,47 +41,12 @@ public class DeliServiceImpl {
 
     public String CreateSale(DeliSaleInputDto inputDto) {
         DeliSale deliSale = deliSaleMapper.toDeliSale(inputDto, employeeService);
-
-
-//        Employee employee = employeeService.getEmployeeById(inputDto.getEmployeeId());
-//        Product deliProduct = productService.getProductByIdReal(inputDto.getDeliProductInputDto().getProductInputDto().getId());
-//
-//        List<Ingredient> ingredients = new ArrayList<>();
-//        for (ProductInputDto productInputDto: inputDto.getDeliProductInputDto().getProductInputDtos()){
-//            Product product = productService.getProductByIdReal(productInputDto.getId());
-//            Ingredient ingredient = new Ingredient();
-//            ingredient.setProduct(product);
-//            ingredients.add(ingredient);
-//        }
-//
-//        DeliProduct deliProductHolder = new DeliProduct();
-//        deliProductHolder.setDeliProduct(deliProduct);
-//        deliProductHolder.setIngredients(ingredients);
-//        deliProductHolder.setCombinedWeight(inputDto.getDeliProductInputDto().getCombinedWeight());
-//        deliProductHolder.setPortionType(inputDto.getDeliProductInputDto().getPortionType());
-//
-//        for (Ingredient ingredient: ingredients){
-//            ingredient.setDeliProduct(deliProductHolder);
-//        }
-//
-//        DeliSale deliSale = new DeliSale();
-//        deliSale.setDeliProduct(deliProductHolder);
-//        deliSale.setSalePrice(inputDto.getSalePrice());
-//        deliSale.setSaleDate(LocalDate.now());
-//        deliSale.setSaleType(inputDto.getSaleType());
-//        deliSale.setSaleTime(Instant.now());
-//        deliSale.setQuantity(inputDto.getQuantity());
-//        deliSale.setSaleWeight(inputDto.getSaleWeight());
-//        deliSale.setDifferenceWeight(inputDto.getDifferenceWeight());
-//        deliSale.setHandMade(inputDto.isHandMade());
-//        deliSale.setWastePerSaleValue(inputDto.getWastePerSaleValue());
-//        deliSale.setEmployee(employee);
-//
-//        deliProductHolder.setSale(deliSale);
-
-
-        // Save DeliSale (this will cascade to DeliProduct)
         deliSaleRepository.save(deliSale);
+
+//        for (Ingredient ingredient: deliSale.getDeliProduct().getIngredients()){
+//            Product product = ingredient.getProduct();
+//
+//        }
         return "Done";
     }
 
