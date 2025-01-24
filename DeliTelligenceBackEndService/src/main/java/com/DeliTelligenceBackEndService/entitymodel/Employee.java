@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "tbl_employee")
+@Table(name = "TBL_EMPLOYEE")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
@@ -41,6 +41,9 @@ public class Employee {
 
     @Column(name = "HIRE_DATE", nullable = false)
     private LocalDate hireDate;
+
+//    @Column(name= "EMPLOYEE_PASSWORD", nullable = false)
+//    private String employeePassword;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("employee-Sale")

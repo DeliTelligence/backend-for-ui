@@ -1,0 +1,16 @@
+type Inventory {
+    id: ID!
+    totalWeight: Float
+    inventoryValue: Float
+    inventoryExpirationDate: String
+    location: String
+    products: [Product]
+}
+
+type InventoryFetchDto {
+    productName: String
+    totalWeight: Float
+    location: String
+    inventoryValue: Float
+}
+

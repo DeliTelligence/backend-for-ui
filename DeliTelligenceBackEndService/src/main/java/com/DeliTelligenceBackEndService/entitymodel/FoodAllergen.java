@@ -21,7 +21,7 @@ public class FoodAllergen {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ALLERGEN_ID",insertable = false, updatable = false)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @JdbcTypeCode(SqlTypes.UUID)
     private UUID id;
 
     @Column(name = "ALLERGEN_DESCRIPTION", length = 1000)

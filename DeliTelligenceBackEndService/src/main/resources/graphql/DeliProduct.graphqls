@@ -9,10 +9,15 @@ type DeliProduct{
 }
 
 input DeliProductInput{
-    products: [String]
-    saleId: ID
-    combinedWeight: Float
-    deliProductPrice: Float
-    deliProductQuantity: Int
-    weightToPrice: Boolean
+    productInputDtos: [ProductInputDto]!
+    productInputDto: ProductInputDto!
+    combinedWeight: Float!
+    portionType: PortionType!
+
+}
+
+enum PortionType {
+    SALAD
+    FILLING
+    QUANTITY
 }

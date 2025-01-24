@@ -2,6 +2,8 @@ package com.DeliTelligenceBackEndService.controller;
 
 import com.DeliTelligenceBackEndService.entitymodeldto.DeliSaleInputDto;
 import com.DeliTelligenceBackEndService.service.DeliServiceImpl;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -13,7 +15,8 @@ public class DeliSaleController {
         this.deliService = deliService;
     }
 
-//    public String createSale(DeliSaleInputDto deliSaleInputDto){
-//        return deliService.createSale(deliSaleInputDto);
-//    }
+    @MutationMapping
+    public String createSale(@Argument DeliSaleInputDto input){
+        return deliService.CreateSale(input);
+    }
 }

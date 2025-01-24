@@ -3,22 +3,20 @@ package com.DeliTelligenceBackEndService.entitymodeldto;
 import lombok.Data;
 
 import java.util.Base64;
+import java.util.List;
+import java.util.UUID;
 
 @Data
 public class ProductFetchDto {
+    private UUID id;
     private String productName;
-    private float standardWeight;
+    private List<StandardWeightProductDto> standardWeightProducts;
     private float productPrice;
-    private String productImage; // This will store the Base64 encoded image string
+    private String productImageDto;
     private String productType;
-
 
     public static String encodeImage(byte[] imageBytes) {
         return Base64.getEncoder().encodeToString(imageBytes);
     }
 
-    // To decode a Base64 string back to image bytes
-    public static byte[] decodeImage(String base64Image) {
-        return Base64.getDecoder().decode(base64Image);
-    }
 }

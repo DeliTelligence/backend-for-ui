@@ -21,17 +21,23 @@ public class Supplier {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "SUPPLIER_ID",insertable = false, updatable = false)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @JdbcTypeCode(SqlTypes.UUID)
     private UUID id;
 
-    @Column(name = "supplier_name", nullable = false, length = 200)
+    @Column(name = "SUPPLIER_NAME", nullable = false, length = 200)
     private String supplierName;
 
-    @Column(name = "supplier_location", nullable = false, length = 200)
+    @Column(name = "SUPPLIER_LOCATION", nullable = false, length = 500)
     private String supplierLocation;
 
+    @Column(name = "SUPPLIER_NUMBER", nullable = false, length = 200)
+    private String supplierNumber;
+
+    @Column(name = "SUPPLIER_WEBSITE", nullable = false, length = 200)
+    private String supplierWebsite;
+
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("supplier-purchaseOrder")
-    private List<PurchaseOrder> orders;
+    @JsonManagedReference("supplier-adjustments")
+    private List<InventoryAdjustment> adjustments;
 
 }

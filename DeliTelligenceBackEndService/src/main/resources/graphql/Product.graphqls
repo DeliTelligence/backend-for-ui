@@ -9,11 +9,26 @@ type Product{
 }
 
 type ProductFetchDto{
+    id: ID
     productName: String
-    standardWeight: Float
+    standardWeightProducts: [StandardWeightProductDto]
     productPrice: Float
-    productImage: String# Base64 encoded image data
+    productImageDto: String# Base64 encoded image data
     productType: String
+}
+
+type StandardWeightProductDto{
+    standardWeight: StandardWeightDto
+    standardWeightValue: Float
+}
+
+type StandardWeightDto{
+     standardType: String
+}
+
+input ProductInputDto{
+    id: String!
+
 }
 
 enum ProductType {

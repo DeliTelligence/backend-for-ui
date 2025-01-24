@@ -1,6 +1,8 @@
 package com.DeliTelligenceBackEndService.entitymodel;
 
 import com.DeliTelligenceBackEndService.enumformodel.ProductType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,15 +25,16 @@ import java.util.UUID;
 public class Product {
     @Id()
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "PRODUCT_ID",insertable = false, updatable = false)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(name = "PRODUCT_ID", insertable = false, updatable = false)
+    @JdbcTypeCode(SqlTypes.UUID)
     private UUID id;
 
     @Column(name = "PRODUCT_NAME", nullable = false, length = 100)
     private String productName;
 
-    @Column(name = "STANDARD_WEIGHT", nullable = false)
-    private Float standardWeight;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("product-standardWeight")
+    private List<StandardWeightProduct> standardWeightProducts;
 
     @Column(name = "PRODUCT_DESCRIPTION", nullable = false)
     private String productDescription;
@@ -46,9 +49,10 @@ public class Product {
     @Column(name = "PRODUCT_TYPE", nullable = false)
     private ProductType productType;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("product-inventory")
-    private List<Inventory> inventories;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value = "product-inventory")
+    @JoinColumn(name = "INVENTORY_ID")
+    private Inventory inventory;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("product-inventoryAdjustment")
@@ -61,9 +65,10 @@ public class Product {
     @JsonManagedReference("product-deliProduct")
     private List<DeliProduct> deliProducts;
 
+
     @OneToMany(mappedBy = "product")
-    @JsonManagedReference("product-productUsed")
-    private List<DeliProduct> productsUsed;
+    @JsonManagedReference("product-ingredient")
+    private List<Ingredient> ingredients;
 
 
 }

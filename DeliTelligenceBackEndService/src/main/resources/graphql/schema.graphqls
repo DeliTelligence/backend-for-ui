@@ -4,12 +4,16 @@ type Query {
     getProductsByType(category: ProductType!): [ProductFetchDto]
     getProductById(id: ID!): ProductFetchDto
     getProductByName(productName: String): ProductFetchDto
+    getAllSuppliers: [SupplierFetchDto]
+    getSupplierByName(name: String!): SupplierFetchDto
+    getInventory: [InventoryFetchDto]
 }
 
 
 type Mutation {
     createEmployee(input: EmployeeInputDto): Employee
-    createSale(input: DeliSaleInputDto): DeliSale
+    createSale(input: DeliSaleInputDto): String
+    createInventoryAdjustment(input: InventoryAdjustmentInputDto): String
     deleteEmployee(id: ID!): String!
 
 }
