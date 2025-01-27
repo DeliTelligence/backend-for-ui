@@ -3,6 +3,7 @@ CREATE TABLE TBL_EMPLOYEE (
                               EMPLOYEE_FIRST_NAME VARCHAR(50) NOT NULL,
                               EMPLOYEE_LAST_NAME VARCHAR(50) NOT NULL,
                               EMPLOYEE_LOGGED_IN BOOLEAN NOT NULL,
+                              EMPLOYEE_PASSWORD VARCHAR(200) NOT NULL,
                               EMPLOYEE_TITLE VARCHAR(50) NOT NULL,
                               HIRE_DATE DATE NOT NULL
 );

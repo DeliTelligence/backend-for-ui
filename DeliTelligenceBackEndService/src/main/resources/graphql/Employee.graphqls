@@ -11,7 +11,16 @@ input EmployeeInputDto {
     employeeFirstName: String!
     employeeLastName: String!
     employeeTitle: EmployeePosition!
+    employeePassword: String!
 
+}
+
+input EmployeeFetchDto{
+    employeeFirstName: String
+    employeeLastName: String
+    employeeTitle: EmployeePosition
+    employeeLoggedIn: Boolean
+    hireDate: String
 }
 
 enum EmployeePosition {

@@ -1,6 +1,7 @@
 package com.DeliTelligenceBackEndService.controller;
 
 import com.DeliTelligenceBackEndService.entitymodel.Employee;
+import com.DeliTelligenceBackEndService.entitymodeldto.EmployeeFetchDto;
 import com.DeliTelligenceBackEndService.entitymodeldto.EmployeeInputDto;
 import com.DeliTelligenceBackEndService.service.EmployeeService;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -21,14 +22,13 @@ public class EmployeeController {
     }
 
     @QueryMapping
-    public List<Employee> getEmployees() {
+    public List<EmployeeFetchDto> getEmployees() {
         return employeeService.getAllEmployees();
     }
 
     @MutationMapping
-    public Employee createEmployee(@Argument EmployeeInputDto input){
+    public String createEmployee(@Argument EmployeeInputDto input){
         return employeeService.createEmployee(input);
-
     }
 
     @MutationMapping

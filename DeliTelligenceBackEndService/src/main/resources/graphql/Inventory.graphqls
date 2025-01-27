@@ -8,9 +8,11 @@ type Inventory {
 }
 
 type InventoryFetchDto {
-    productName: String
+    products: [ProductFetchDto]
     totalWeight: Float
     location: String
     inventoryValue: Float
+    saladPortion: Float
+    fillingPortion: Float
 }
 
