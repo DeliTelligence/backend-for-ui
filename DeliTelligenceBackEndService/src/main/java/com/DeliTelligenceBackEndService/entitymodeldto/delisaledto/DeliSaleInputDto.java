@@ -1,9 +1,8 @@
-package com.DeliTelligenceBackEndService.entitymodeldto;
+package com.DeliTelligenceBackEndService.entitymodeldto.delisaledto;
 
 import com.DeliTelligenceBackEndService.enumformodel.SaleType;
 import lombok.Data;
 
-import java.util.List;
 import java.util.UUID;
 
 @Data

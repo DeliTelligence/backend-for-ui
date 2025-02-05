@@ -8,8 +8,8 @@ import com.DeliTelligenceBackEndService.entitymodel.mapper.InventoryAdjustmentMa
 import com.DeliTelligenceBackEndService.entitymodel.mapper.InventoryMapper;
 import com.DeliTelligenceBackEndService.entitymodel.repository.InventoryAdjustmentRepository;
 import com.DeliTelligenceBackEndService.entitymodel.repository.InventoryRepository;
-import com.DeliTelligenceBackEndService.entitymodeldto.InventoryAdjustmentInputDto;
-import com.DeliTelligenceBackEndService.entitymodeldto.InventoryFetchDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.inventorydto.InventoryAdjustmentInputDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.inventorydto.InventoryFetchDto;
 import com.DeliTelligenceBackEndService.enumformodel.AdjustmentType;
 import com.DeliTelligenceBackEndService.enumformodel.StandardType;
 import org.springframework.stereotype.Service;
@@ -81,8 +81,6 @@ public class InventoryService {
 
         return inventoryFetchDtoList;
     }
-
-
 
 
     public String createInventoryAdjustment(InventoryAdjustmentInputDto inventoryAdjustmentInputDto){

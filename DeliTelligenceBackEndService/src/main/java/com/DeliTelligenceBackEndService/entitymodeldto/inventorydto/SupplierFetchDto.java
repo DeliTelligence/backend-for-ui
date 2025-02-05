@@ -1,4 +1,4 @@
-package com.DeliTelligenceBackEndService.entitymodeldto;
+package com.DeliTelligenceBackEndService.entitymodeldto.inventorydto;
 
 import lombok.Data;
 

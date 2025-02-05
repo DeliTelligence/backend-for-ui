@@ -1,6 +1,5 @@
 package com.DeliTelligenceBackEndService.entitymodel;
 
-import com.DeliTelligenceBackEndService.entitymodeldto.DeliProductInputDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

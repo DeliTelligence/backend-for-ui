@@ -1,21 +1,19 @@
 package com.DeliTelligenceBackEndService.entitymodel.mapper;
 
-import com.DeliTelligenceBackEndService.entitymodel.Ingredient;
-import com.DeliTelligenceBackEndService.entitymodel.Product;
+import com.DeliTelligenceBackEndService.custommapper.EditCustomMapping;
+import com.DeliTelligenceBackEndService.entitymodel.*;
+import com.DeliTelligenceBackEndService.entitymodel.repository.ProductRepository;
+import com.DeliTelligenceBackEndService.entitymodeldto.ProductUpdateDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.productcreatedto.ProductCreateDto;
 import com.DeliTelligenceBackEndService.entitymodeldto.ProductFetchDto;
 import com.DeliTelligenceBackEndService.entitymodeldto.ProductInputDto;
 import com.DeliTelligenceBackEndService.service.ProductService;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import org.mapstruct.Context;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
+import jakarta.persistence.EntityNotFoundException;
+import org.mapstruct.*;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Base64;
 
-@Mapper(componentModel = "spring", uses = {StandardWeightProductMapper.class})
+@Mapper(componentModel = "spring", uses = {StandardWeightProductMapper.class, StandardWeightMapper.class, EditCustomMapping.class})
 public interface ProductMapper {
 
     @Mapping(target = "productImageDto", source = "productImage")
@@ -24,18 +22,59 @@ public interface ProductMapper {
     @Mapping(target = "productImage", source = "productImageDto")
     Product toProduct(ProductFetchDto productFetchDto);
 
-    @Mapping(target = "id", source = "id")
     Product toProduct(ProductInputDto productInputDto);
 
-    ProductInputDto toProductInputDto(Product product);
+    @Mapping(target = "productDeleted", constant = "false")
+    @Mapping(target = "productImage", source = "productImageDto")
+    Product toProduct(ProductCreateDto productCreateDto);
+
+
+
+    @AfterMapping
+    default void setProductReferenceAndStandardWeight(@MappingTarget Product product) {
+        if (product.getStandardWeightProducts() != null) {
+            for (StandardWeightProduct swp : product.getStandardWeightProducts()) {
+                swp.setProduct(product); // Set the product reference
+
+            }
+        }
+    }
+    @BeforeMapping
+    default void loadProduct(ProductUpdateDto productUpdateDto, @MappingTarget Product product, @Context ProductRepository productRepository) {
+        Product loadedProduct = productRepository.findById(productUpdateDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Product not found for this id :: " + productUpdateDto.getId()));
+
+        // Copy values from the loaded product
+        product.setProductName(loadedProduct.getProductName());
+        product.setProductDescription(loadedProduct.getProductDescription());
+        product.setProductType(loadedProduct.getProductType());
+        product.setProductImage(loadedProduct.getProductImage());
+        product.setProductPrice(loadedProduct.getProductPrice());
+        product.setStandardWeightProducts(loadedProduct.getStandardWeightProducts());
+        product.setAdjustments(loadedProduct.getAdjustments());
+        product.setDeliProducts(loadedProduct.getDeliProducts());
+        product.setIngredients(loadedProduct.getIngredients());
+    }
+
+    @Mapping(target = "productDeleted", constant = "false")
+    @Mapping(target = "productName", conditionExpression = "java(isDifferent(product.getProductName(), productUpdateDto.getProductName()))", source = "productName")
+    @Mapping(target = "productDescription", conditionExpression = "java(isDifferent(product.getProductDescription(), productUpdateDto.getProductDescription()))", source = "productDescription")
+    @Mapping(target = "productPrice", conditionExpression = "java(isDifferent(product.getProductPrice(), productUpdateDto.getProductPrice()))", source = "productPrice")
+    @Mapping(target = "productType", conditionExpression = "java(isDifferent(product.getProductType(), productUpdateDto.getProductType()))", source = "productType")
+    @Mapping(target = "productImage", conditionExpression = "java(isDifferent(product.getProductImage(), productUpdateDto.getProductImageDto() != null ? productUpdateDto.getProductImageDto().getBytes() : null))", source = "productImageDto")
+    Product toProduct(ProductUpdateDto productUpdateDto, @Context ProductRepository productRepository);
+
+
+    default boolean isDifferent(Object entityValue, Object dtoValue) {
+        return EditCustomMapping.isDifferent(entityValue, dtoValue);
+    }
 
 
     default Product map(String productName, @Context ProductService productService) {
         if (productName == null) {
             return null;
         }
-        return (productService.getProductByNameReal(productName));
-
+        return productService.getProductByNameReal(productName);
     }
 
     // Image mapping
@@ -44,7 +83,23 @@ public interface ProductMapper {
     }
 
     default byte[] map(String productImageDto) {
-        return productImageDto == null ? null : Base64.getDecoder().decode(productImageDto);
+        if (productImageDto == null) {
+            return null;
+        }
+        // Remove "data:image/*;base64," prefix if it exists
+        if (productImageDto.startsWith("data:image")) {
+            int commaIndex = productImageDto.indexOf(',');
+            if (commaIndex > 0) {
+                productImageDto = productImageDto.substring(commaIndex + 1);
+            }
+        }
+        try {
+            return Base64.getDecoder().decode(productImageDto);
+        } catch (IllegalArgumentException e) {
+            // Handle invalid base64 input appropriately
+            throw new IllegalArgumentException("Invalid base64 input", e);
+        }
     }
-}
 
+
+}

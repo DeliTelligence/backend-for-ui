@@ -55,6 +55,4 @@ public class InventoryAdjustment {
     @JsonBackReference(value = "product-inventoryAdjustment")
     @JoinColumn(name = "PRODUCT_ID", nullable = false)
     private Product product;
-
-
 }

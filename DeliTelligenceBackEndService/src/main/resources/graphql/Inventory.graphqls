@@ -1,11 +1,3 @@
-type Inventory {
-    id: ID!
-    totalWeight: Float
-    inventoryValue: Float
-    inventoryExpirationDate: String
-    location: String
-    products: [Product]
-}
 
 type InventoryFetchDto {
     products: [ProductFetchDto]

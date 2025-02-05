@@ -15,8 +15,4 @@ public class ProductFetchDto {
     private String productImageDto;
     private String productType;
 
-    public static String encodeImage(byte[] imageBytes) {
-        return Base64.getEncoder().encodeToString(imageBytes);
-    }
-
 }

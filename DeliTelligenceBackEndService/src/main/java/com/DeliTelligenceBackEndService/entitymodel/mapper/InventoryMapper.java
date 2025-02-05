@@ -1,9 +1,7 @@
 package com.DeliTelligenceBackEndService.entitymodel.mapper;
 
 import com.DeliTelligenceBackEndService.entitymodel.Inventory;
-import com.DeliTelligenceBackEndService.entitymodel.StandardWeightProduct;
-import com.DeliTelligenceBackEndService.entitymodeldto.InventoryFetchDto;
-import com.DeliTelligenceBackEndService.enumformodel.StandardType;
+import com.DeliTelligenceBackEndService.entitymodeldto.inventorydto.InventoryFetchDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

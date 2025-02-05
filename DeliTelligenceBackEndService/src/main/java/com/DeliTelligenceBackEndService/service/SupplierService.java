@@ -3,7 +3,7 @@ package com.DeliTelligenceBackEndService.service;
 import com.DeliTelligenceBackEndService.entitymodel.Supplier;
 import com.DeliTelligenceBackEndService.entitymodel.mapper.SupplierMapper;
 import com.DeliTelligenceBackEndService.entitymodel.repository.SupplierRepository;
-import com.DeliTelligenceBackEndService.entitymodeldto.SupplierFetchDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.inventorydto.SupplierFetchDto;
 import com.DeliTelligenceBackEndService.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
