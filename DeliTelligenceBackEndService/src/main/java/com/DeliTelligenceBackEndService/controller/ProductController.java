@@ -1,10 +1,12 @@
 package com.DeliTelligenceBackEndService.controller;
 
-import com.DeliTelligenceBackEndService.entitymodel.Product;
+import com.DeliTelligenceBackEndService.entitymodeldto.ProductUpdateDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.productcreatedto.ProductCreateDto;
 import com.DeliTelligenceBackEndService.entitymodeldto.ProductFetchDto;
 import com.DeliTelligenceBackEndService.enumformodel.ProductType;
 import com.DeliTelligenceBackEndService.service.ProductService;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
@@ -38,5 +40,19 @@ public class ProductController {
     @QueryMapping
     private ProductFetchDto getProductByName(@Argument String productName) {
         return productService.getProductByName(productName);
+    }
+
+    @MutationMapping
+    public String createProduct(@Argument ProductCreateDto input) {
+        return productService.CreateProduct(input);
+    }
+
+    @MutationMapping
+    public String editProduct(@Argument ProductUpdateDto input) {
+        return productService.updateProduct(input);
+    }
+    @MutationMapping
+    public String deleteProduct(@Argument UUID id) {
+        return productService.deleteProduct(id);
     }
 }

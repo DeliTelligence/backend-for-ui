@@ -1,4 +1,4 @@
-package com.DeliTelligenceBackEndService.entitymodeldto;
+package com.DeliTelligenceBackEndService.entitymodeldto.inventorydto;
 
 import com.DeliTelligenceBackEndService.enumformodel.AdjustmentType;
 import lombok.Data;

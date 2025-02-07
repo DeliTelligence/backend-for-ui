@@ -1,17 +1,30 @@
-type Employee{
+
+# Retrieval DTO for Get requests
+type EmployeeFetchDto{
     id: ID!
     employeeFirstName: String
     employeeLastName: String
+    employeeTitle: EmployeePosition
     employeeLoggedIn: Boolean
-    employeeTitle: String
     hireDate: String
+    employeePassword: String
 }
 
-input EmployeeInputDto {
+# Creation DTO for a Employee
+input EmployeeInputCreateDto {
     employeeFirstName: String!
     employeeLastName: String!
     employeeTitle: EmployeePosition!
+    employeePassword: String!
+}
 
+# Update DTO for Employee
+input EmployeeInputUpdateDto {
+    employeeId: ID!
+    employeeFirstName: String!
+    employeeLastName: String!
+    employeeTitle: EmployeePosition!
+    employeePassword: String!
 }
 
 enum EmployeePosition {

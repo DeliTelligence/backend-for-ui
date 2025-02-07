@@ -1,6 +1,6 @@
 package com.DeliTelligenceBackEndService.controller;
 
-import com.DeliTelligenceBackEndService.entitymodeldto.SupplierFetchDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.inventorydto.SupplierFetchDto;
 import com.DeliTelligenceBackEndService.service.SupplierService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;

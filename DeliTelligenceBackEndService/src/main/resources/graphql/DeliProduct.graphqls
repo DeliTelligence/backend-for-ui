@@ -1,12 +1,3 @@
-type DeliProduct{
-    id: ID!
-    products: [Product]
-    saleId: [DeliSale]
-    combinedWeight: Float
-    deliProductPrice: Float
-    deliProductQuantity: Int
-    weightToPrice: Boolean
-}
 
 input DeliProductInput{
     productInputDtos: [ProductInputDto]!

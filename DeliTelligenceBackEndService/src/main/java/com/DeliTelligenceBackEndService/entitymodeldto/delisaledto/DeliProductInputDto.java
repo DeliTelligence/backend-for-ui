@@ -1,10 +1,10 @@
-package com.DeliTelligenceBackEndService.entitymodeldto;
+package com.DeliTelligenceBackEndService.entitymodeldto.delisaledto;
 
+import com.DeliTelligenceBackEndService.entitymodeldto.ProductInputDto;
 import com.DeliTelligenceBackEndService.enumformodel.PortionType;
 import lombok.Data;
 
 import java.util.List;
-import java.util.UUID;
 
 @Data
 public class DeliProductInputDto {

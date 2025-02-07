@@ -42,8 +42,8 @@ public class Employee {
     @Column(name = "HIRE_DATE", nullable = false)
     private LocalDate hireDate;
 
-//    @Column(name= "EMPLOYEE_PASSWORD", nullable = false)
-//    private String employeePassword;
+    @Column(name= "EMPLOYEE_PASSWORD", nullable = false)
+    private String employeePassword;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("employee-Sale")

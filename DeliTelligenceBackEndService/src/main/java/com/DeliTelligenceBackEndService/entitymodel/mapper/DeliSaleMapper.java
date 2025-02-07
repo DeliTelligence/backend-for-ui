@@ -1,13 +1,11 @@
 package com.DeliTelligenceBackEndService.entitymodel.mapper;
 
-import com.DeliTelligenceBackEndService.entitymodel.Employee;
 import com.DeliTelligenceBackEndService.service.EmployeeService;
-import com.DeliTelligenceBackEndService.service.ProductService;
 import org.mapstruct.*;
 
 
 import com.DeliTelligenceBackEndService.entitymodel.DeliSale;
-import com.DeliTelligenceBackEndService.entitymodeldto.DeliSaleInputDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.DeliSaleInputDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = {EmployeeMapper.class, DeliProductMapper.class})
@@ -30,4 +28,3 @@ public interface DeliSaleMapper {
     @Mapping(target = "deliProductInputDto", source = "deliProduct")
     DeliSaleInputDto toDeliSaleInputDto(DeliSale deliSale);
 }
-

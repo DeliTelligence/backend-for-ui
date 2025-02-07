@@ -2,17 +2,17 @@ package com.DeliTelligenceBackEndService.entitymodel.mapper;
 
 import com.DeliTelligenceBackEndService.entitymodel.DeliProduct;
 
+import com.DeliTelligenceBackEndService.entitymodel.DeliSale;
 import com.DeliTelligenceBackEndService.entitymodel.Ingredient;
 import com.DeliTelligenceBackEndService.entitymodel.Product;
-import com.DeliTelligenceBackEndService.entitymodeldto.DeliProductInputDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.DeliProductInputDto;
 
 import com.DeliTelligenceBackEndService.entitymodeldto.ProductInputDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.DeliSaleInputDto;
 import org.mapstruct.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 
 @Mapper(componentModel = "spring", uses = {ProductMapper.class})

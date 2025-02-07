@@ -49,6 +49,9 @@ public class Product {
     @Column(name = "PRODUCT_TYPE", nullable = false)
     private ProductType productType;
 
+    @Column(name = "PRODUCT_DELETED", nullable = false)
+    private Boolean productDeleted;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value = "product-inventory")
     @JoinColumn(name = "INVENTORY_ID")
@@ -58,8 +61,6 @@ public class Product {
     @JsonManagedReference("product-inventoryAdjustment")
     private List<InventoryAdjustment> adjustments;
 
-    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
-    private Set<FoodAllergen> productAllergens = new HashSet<FoodAllergen>();
 
     @OneToMany(mappedBy = "deliProduct")
     @JsonManagedReference("product-deliProduct")

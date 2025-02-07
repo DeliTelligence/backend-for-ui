@@ -1,20 +1,12 @@
-type Product{
-    id: ID!
-    productName: String
-    standardWeight: Float
-    productDescription: String
-    productPrice: Float
-    productType: ProductType
-    productImage: String  # Base64 encoded image data
-}
-
+# Retrieval DTO for Products
 type ProductFetchDto{
     id: ID
     productName: String
     standardWeightProducts: [StandardWeightProductDto]
     productPrice: Float
     productImageDto: String# Base64 encoded image data
-    productType: String
+    productType: ProductType
+    productDescription: String
 }
 
 type StandardWeightProductDto{
@@ -23,16 +15,79 @@ type StandardWeightProductDto{
 }
 
 type StandardWeightDto{
-     standardType: String
+     standardWeightId: ID
+     standardType: StandardType
+}
+
+# Product Create DTO for Products
+input ProductCreateDto{
+    productName: String!
+    standardWeightProducts: [StandardWeightProductInputCreateDto]!
+    productPrice: Float!
+    productImageDto: String!# Base64 encoded image data
+    productDescription: String!
+    productType: ProductType!
+
+}
+
+input StandardWeightProductInputCreateDto{
+    standardWeightValue: Float!
+    standardWeight: StandardWeightInputCreateDto!
+}
+
+input StandardWeightInputCreateDto{
+    standardWeightId: ID!
+}
+
+
+# Update Products DTO
+input ProductUpdateDto {
+    id: ID!
+    productName: String!
+    standardWeightProducts: [StandardWeightProductInputUpdateDto]!
+    productPrice: Float!
+    productImageDto: String!# Base64 encoded image data
+    productDescription: String!
+    productType: ProductType!
+}
+
+input StandardWeightProductInputUpdateDto{
+    standardWeightValue: Float!
+    standardWeight: StandardWeightInputUpdateDto!
+}
+
+input StandardWeightInputUpdateDto{
+    standardWeightId: ID!
 }
 
 input ProductInputDto{
-    id: String!
+    id: ID!
 
 }
+
+input StandardWeightProductInputDto{
+    standardWeight: StandardWeightInputDto
+    standardWeightValue: Float
+}
+
+
+input StandardWeightInputDto{
+    standardType: StandardType
+}
+
 
 enum ProductType {
     HOT_FOOD
     COLD_FOOD
     BREAD
+    MADE_FOOD_HOT
+    MADE_FOOD_COLD
+    MAIN_FILLING_FOOD
+    BREAKFAST_FOOD
+}
+
+enum StandardType{
+    FILLING
+    SALAD
+    TO_GO
 }

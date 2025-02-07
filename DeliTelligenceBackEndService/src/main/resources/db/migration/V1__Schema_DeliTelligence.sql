@@ -3,6 +3,7 @@ CREATE TABLE TBL_EMPLOYEE (
                               EMPLOYEE_FIRST_NAME VARCHAR(50) NOT NULL,
                               EMPLOYEE_LAST_NAME VARCHAR(50) NOT NULL,
                               EMPLOYEE_LOGGED_IN BOOLEAN NOT NULL,
+                              EMPLOYEE_PASSWORD VARCHAR(200) NOT NULL,
                               EMPLOYEE_TITLE VARCHAR(50) NOT NULL,
                               HIRE_DATE DATE NOT NULL
 );
@@ -51,6 +52,7 @@ CREATE TABLE TBL_PRODUCT (
                              PRODUCT_DESCRIPTION VARCHAR(1000) NOT NULL,
                              PRODUCT_PRICE FLOAT(2) NOT NULL,
                              PRODUCT_TYPE VARCHAR(100) NOT NULL,
+                             PRODUCT_DELETED BOOLEAN NOT NULL,
                              PRODUCT_IMAGE bytea NOT NULL,
                              FOREIGN KEY (INVENTORY_ID) REFERENCES TBL_INVENTORY(INVENTORY_ID)
 

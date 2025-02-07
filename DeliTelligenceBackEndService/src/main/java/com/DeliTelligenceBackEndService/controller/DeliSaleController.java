@@ -1,6 +1,6 @@
 package com.DeliTelligenceBackEndService.controller;
 
-import com.DeliTelligenceBackEndService.entitymodeldto.DeliSaleInputDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.DeliSaleInputDto;
 import com.DeliTelligenceBackEndService.service.DeliServiceImpl;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
