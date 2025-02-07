@@ -22,6 +22,7 @@ public interface ProductMapper {
     @Mapping(target = "productImage", source = "productImageDto")
     Product toProduct(ProductFetchDto productFetchDto);
 
+    @Mapping(target = "id", source = "id")
     Product toProduct(ProductInputDto productInputDto);
 
     @Mapping(target = "productDeleted", constant = "false")

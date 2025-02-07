@@ -5,7 +5,8 @@ type ProductFetchDto{
     standardWeightProducts: [StandardWeightProductDto]
     productPrice: Float
     productImageDto: String# Base64 encoded image data
-    productType: String
+    productType: ProductType
+    productDescription: String
 }
 
 type StandardWeightProductDto{
@@ -42,16 +43,16 @@ input StandardWeightInputCreateDto{
 # Update Products DTO
 input ProductUpdateDto {
     id: ID!
-    productName: String
-    standardWeightProducts: [StandardWeightProductInputUpdateDto]
-    productPrice: Float
-    productImageDto: String# Base64 encoded image data
-    productDescription: String
-    productType: ProductType
+    productName: String!
+    standardWeightProducts: [StandardWeightProductInputUpdateDto]!
+    productPrice: Float!
+    productImageDto: String!# Base64 encoded image data
+    productDescription: String!
+    productType: ProductType!
 }
 
 input StandardWeightProductInputUpdateDto{
-    standardWeightValue: Float
+    standardWeightValue: Float!
     standardWeight: StandardWeightInputUpdateDto!
 }
 
@@ -60,7 +61,7 @@ input StandardWeightInputUpdateDto{
 }
 
 input ProductInputDto{
-    id: ID
+    id: ID!
 
 }
 
@@ -79,6 +80,10 @@ enum ProductType {
     HOT_FOOD
     COLD_FOOD
     BREAD
+    MADE_FOOD_HOT
+    MADE_FOOD_COLD
+    MAIN_FILLING_FOOD
+    BREAKFAST_FOOD
 }
 
 enum StandardType{

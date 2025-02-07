@@ -13,5 +13,6 @@ public class EmployeeFetchDto {
     private String hireDate;
     private EmployeeTitle employeeTitle;
     private boolean employeeLoggedIn;
+    private String employeePassword;
 }
 

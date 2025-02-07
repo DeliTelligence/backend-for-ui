@@ -7,6 +7,7 @@ type EmployeeFetchDto{
     employeeTitle: EmployeePosition
     employeeLoggedIn: Boolean
     hireDate: String
+    employeePassword: String
 }
 
 # Creation DTO for a Employee
@@ -20,10 +21,10 @@ input EmployeeInputCreateDto {
 # Update DTO for Employee
 input EmployeeInputUpdateDto {
     employeeId: ID!
-    employeeFirstName: String
-    employeeLastName: String
-    employeeTitle: EmployeePosition
-    employeePassword: String
+    employeeFirstName: String!
+    employeeLastName: String!
+    employeeTitle: EmployeePosition!
+    employeePassword: String!
 }
 
 enum EmployeePosition {
