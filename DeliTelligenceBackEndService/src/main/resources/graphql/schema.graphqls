@@ -1,13 +1,19 @@
+
 type Query {
     getAllEmployees: [EmployeeFetchDto]
     getAllProducts: [ProductFetchDto]
     getProductsByType(category: ProductType!): [ProductFetchDto]
     getProductById(id: ID!): ProductFetchDto
-    getProductByName(productName: String): ProductFetchDto
+    getProductByName(productName: String!): ProductFetchDto
     getAllSuppliers: [SupplierFetchDto]
     getSupplierByName(name: String!): SupplierFetchDto
     getInventory: [InventoryFetchDto]
     employeeLogin(password: String!): EmployeeFetchDto
+    getAllStandardWeights: [StandardWeightDto]
+    getAllSalesByDate(startDate: String!, endDate: String!): [DailySaleDto]
+    dailySalesTotal(date: String!): Float
+    totalSales: Float!
+
 }
 
 
@@ -20,5 +26,6 @@ type Mutation {
     createProduct(input: ProductCreateDto): String
     deleteProduct(id: ID!): String
     editProduct(input: ProductUpdateDto): String
+    createTestData: String!
 
 }

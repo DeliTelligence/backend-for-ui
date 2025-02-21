@@ -61,7 +61,7 @@ public class DeliSale {
     private int quantity;
 
     @OneToOne(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("DeliProduct-DeliSale")
+    @JsonManagedReference("product-deliProduct")
     private DeliProduct deliProduct;
 
 }

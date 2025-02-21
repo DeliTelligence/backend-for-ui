@@ -1,6 +1,6 @@
 package com.DeliTelligenceBackEndService.entitymodel.mapper;
 
-import com.DeliTelligenceBackEndService.custommapper.EditCustomMapping;
+import com.DeliTelligenceBackEndService.helper.EditCustomMapping;
 import com.DeliTelligenceBackEndService.entitymodel.*;
 import com.DeliTelligenceBackEndService.entitymodel.repository.ProductRepository;
 import com.DeliTelligenceBackEndService.entitymodeldto.ProductUpdateDto;
@@ -58,16 +58,16 @@ public interface ProductMapper {
     }
 
     @Mapping(target = "productDeleted", constant = "false")
-    @Mapping(target = "productName", conditionExpression = "java(isDifferent(product.getProductName(), productUpdateDto.getProductName()))", source = "productName")
-    @Mapping(target = "productDescription", conditionExpression = "java(isDifferent(product.getProductDescription(), productUpdateDto.getProductDescription()))", source = "productDescription")
-    @Mapping(target = "productPrice", conditionExpression = "java(isDifferent(product.getProductPrice(), productUpdateDto.getProductPrice()))", source = "productPrice")
-    @Mapping(target = "productType", conditionExpression = "java(isDifferent(product.getProductType(), productUpdateDto.getProductType()))", source = "productType")
-    @Mapping(target = "productImage", conditionExpression = "java(isDifferent(product.getProductImage(), productUpdateDto.getProductImageDto() != null ? productUpdateDto.getProductImageDto().getBytes() : null))", source = "productImageDto")
+    @Mapping(target = "productName", conditionExpression = "java(isDifferentOrNull(product.getProductName(), productUpdateDto.getProductName()))", source = "productName")
+    @Mapping(target = "productDescription", conditionExpression = "java(isDifferentOrNull(product.getProductDescription(), productUpdateDto.getProductDescription()))", source = "productDescription")
+    @Mapping(target = "productPrice", conditionExpression = "java(isDifferentOrNull(product.getProductPrice(), productUpdateDto.getProductPrice()))", source = "productPrice")
+    @Mapping(target = "productType", conditionExpression = "java(isDifferentOrNull(product.getProductType(), productUpdateDto.getProductType()))", source = "productType")
+    @Mapping(target = "productImage", conditionExpression = "java(isDifferentOrNull(product.getProductImage(), productUpdateDto.getProductImageDto() != null ? productUpdateDto.getProductImageDto().getBytes() : null))", source = "productImageDto")
     Product toProduct(ProductUpdateDto productUpdateDto, @Context ProductRepository productRepository);
 
 
-    default boolean isDifferent(Object entityValue, Object dtoValue) {
-        return EditCustomMapping.isDifferent(entityValue, dtoValue);
+    default boolean isDifferentOrNull(Object entityValue, Object dtoValue) {
+        return EditCustomMapping.isDifferentOrNull(entityValue, dtoValue);
     }
 
 

@@ -52,6 +52,10 @@ public class EmployeeService {
         return employeeFetchDtos;
     }
 
+    public List<Employee> getAllEmployeesReal(){
+        return employeeRepository.findAll();
+    }
+
     public Employee getEmployeeByID(UUID id) {
         return employeeRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Employee", "ID", id));

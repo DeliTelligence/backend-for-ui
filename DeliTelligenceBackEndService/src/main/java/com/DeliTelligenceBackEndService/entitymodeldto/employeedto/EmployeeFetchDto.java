@@ -14,5 +14,7 @@ public class EmployeeFetchDto {
     private EmployeeTitle employeeTitle;
     private boolean employeeLoggedIn;
     private String employeePassword;
+    private int totalTransactions;
+    private float totalWastePercentage;
 }
 

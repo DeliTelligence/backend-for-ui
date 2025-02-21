@@ -7,6 +7,8 @@ public enum ProductType {
     BREAD,
     MADE_FOOD_HOT,
     MADE_FOOD_COLD,
-    COLD_FOOD
-
+    COLD_FOOD,
+    SALAD,
+    TO_GO_BAG,
+    UNKNOWN
 }

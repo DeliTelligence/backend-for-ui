@@ -1,11 +1,8 @@
 package com.DeliTelligenceBackEndService.entitymodel.mapper;
 
-import com.DeliTelligenceBackEndService.custommapper.EditCustomMapping;
+import com.DeliTelligenceBackEndService.helper.EditCustomMapping;
 import com.DeliTelligenceBackEndService.entitymodel.Employee;
-import com.DeliTelligenceBackEndService.entitymodel.Product;
 import com.DeliTelligenceBackEndService.entitymodel.repository.EmployeeRepository;
-import com.DeliTelligenceBackEndService.entitymodel.repository.ProductRepository;
-import com.DeliTelligenceBackEndService.entitymodeldto.ProductUpdateDto;
 import com.DeliTelligenceBackEndService.entitymodeldto.employeedto.EmployeeFetchDto;
 import com.DeliTelligenceBackEndService.entitymodeldto.employeedto.EmployeeCreateDto;
 import com.DeliTelligenceBackEndService.entitymodeldto.employeedto.EmployeeUpdateDto;
@@ -13,9 +10,6 @@ import com.DeliTelligenceBackEndService.service.EmployeeService;
 import jakarta.persistence.EntityNotFoundException;
 import org.mapstruct.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 @Mapper(componentModel = "spring")
@@ -44,14 +38,14 @@ public interface EmployeeMapper {
     }
 
     @Mapping(target = "id", source = "employeeId")
-    @Mapping(target = "employeeFirstName", conditionExpression = "java(isDifferent(employee.getEmployeeFirstName(), employeeUpdateDto.getEmployeeFirstName()))", source = "employeeFirstName")
-    @Mapping(target = "employeeLastName", conditionExpression = "java(isDifferent(employee.getEmployeeLastName(), employeeUpdateDto.getEmployeeLastName()))", source = "employeeLastName")
-    @Mapping(target = "employeeTitle", conditionExpression = "java(isDifferent(employee.getEmployeeTitle(), employeeUpdateDto.getEmployeeTitle()))", source = "employeeTitle")
-    @Mapping(target = "employeePassword", conditionExpression = "java(isDifferent(employee.getEmployeePassword(), employeeUpdateDto.getEmployeePassword()))", source = "employeePassword")
+    @Mapping(target = "employeeFirstName", conditionExpression = "java(isDifferentOrNull(employee.getEmployeeFirstName(), employeeUpdateDto.getEmployeeFirstName()))", source = "employeeFirstName")
+    @Mapping(target = "employeeLastName", conditionExpression = "java(isDifferentOrNull(employee.getEmployeeLastName(), employeeUpdateDto.getEmployeeLastName()))", source = "employeeLastName")
+    @Mapping(target = "employeeTitle", conditionExpression = "java(isDifferentOrNull(employee.getEmployeeTitle(), employeeUpdateDto.getEmployeeTitle()))", source = "employeeTitle")
+    @Mapping(target = "employeePassword", conditionExpression = "java(isDifferentOrNull(employee.getEmployeePassword(), employeeUpdateDto.getEmployeePassword()))", source = "employeePassword")
     Employee toEmployee(EmployeeUpdateDto employeeUpdateDto, @Context EmployeeRepository employeeRepository);
 
-        default boolean isDifferent(Object entityValue, Object dtoValue) {
-            return EditCustomMapping.isDifferent(entityValue, dtoValue);
+        default boolean isDifferentOrNull(Object entityValue, Object dtoValue) {
+            return EditCustomMapping.isDifferentOrNull(entityValue, dtoValue);
     }
 
 // mapping for the deli sale mapper
