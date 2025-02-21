@@ -67,7 +67,7 @@ public class Product {
     private List<DeliProduct> deliProducts;
 
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("product-ingredient")
     private List<Ingredient> ingredients;
 

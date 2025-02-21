@@ -14,5 +14,6 @@ public class ProductFetchDto {
     private float productPrice;
     private String productImageDto;
     private String productType;
+    private String productDescription;
 
 }

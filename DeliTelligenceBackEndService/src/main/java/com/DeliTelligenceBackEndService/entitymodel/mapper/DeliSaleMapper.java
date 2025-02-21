@@ -1,5 +1,7 @@
 package com.DeliTelligenceBackEndService.entitymodel.mapper;
 
+import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.DailySaleDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.DeliSaleFetchDto;
 import com.DeliTelligenceBackEndService.service.EmployeeService;
 import org.mapstruct.*;
 
@@ -27,4 +29,8 @@ public interface DeliSaleMapper {
     @Mapping(target = "employeeId", source = "employee.id")
     @Mapping(target = "deliProductInputDto", source = "deliProduct")
     DeliSaleInputDto toDeliSaleInputDto(DeliSale deliSale);
+
+    DeliSaleFetchDto toDeliSaleFetchDto(DeliSale deliSale);
+
+
 }

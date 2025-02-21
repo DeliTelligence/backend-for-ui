@@ -1,4 +1,17 @@
 
+type DailySaleDto {
+    saleCategoryTime: String!
+    salePercentage: Float!
+    saleAmount: Float!
+
+}
+
+type DeliSaleFetchDto {
+    saleDate: String!
+    salePrice: Float!
+}
+
+
 input DeliSaleInputDto {
     salePrice: Float!
     saleWeight: Float!
@@ -18,3 +31,4 @@ enum SaleType {
     HOT_FOOD,
     SALAD
 }
+

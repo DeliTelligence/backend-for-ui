@@ -37,6 +37,7 @@ public class ProductController {
     private ProductFetchDto getProductById(@Argument UUID id) {
         return productService.getProductById(id);
     }
+
     @QueryMapping
     private ProductFetchDto getProductByName(@Argument String productName) {
         return productService.getProductByName(productName);
@@ -51,6 +52,7 @@ public class ProductController {
     public String editProduct(@Argument ProductUpdateDto input) {
         return productService.updateProduct(input);
     }
+
     @MutationMapping
     public String deleteProduct(@Argument UUID id) {
         return productService.deleteProduct(id);

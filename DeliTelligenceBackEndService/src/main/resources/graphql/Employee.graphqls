@@ -8,6 +8,8 @@ type EmployeeFetchDto{
     employeeLoggedIn: Boolean
     hireDate: String
     employeePassword: String
+    totalTransactions: Int
+    totalWastePercentage: Float
 }
 
 # Creation DTO for a Employee

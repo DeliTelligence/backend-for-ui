@@ -1,11 +1,14 @@
-package com.DeliTelligenceBackEndService.custommapper;
+package com.DeliTelligenceBackEndService.helper;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class EditCustomMapping {
-    public static boolean isDifferent(Object entityValue, Object dtoValue) {
+    public static boolean isDifferentOrNull(Object entityValue, Object dtoValue) {
         if (dtoValue == null) {
+            return false;
+        }
+        if (dtoValue.equals("")) {
             return false;
         }
         if (entityValue == null) {

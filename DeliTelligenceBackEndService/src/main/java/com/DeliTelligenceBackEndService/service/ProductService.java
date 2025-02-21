@@ -97,8 +97,24 @@ public class ProductService {
         return productFetchDtos;
     }
 
+    public List<Product> getProductsByTypeReal(ProductType productType) {
+        List<Product> products = productRepository.findAll();
+        List<Product> productsToReturn = new ArrayList<>();
+        for (Product product : products) {
+            if (product.getProductType().equals(productType)) {
+                productsToReturn.add(product);
+            }
+        }
+        return productsToReturn;
+    }
+
     public Product getProductByNameReal(String productName) {
         return productRepository.getProductByProductName(productName).orElseThrow(() -> new EntityNotFoundException("Product not found"));
+    }
+
+    public List<Product> getAllProductsReal(){
+        List<Product> products = productRepository.findAll();
+        return products;
     }
 
     public String CreateProduct(ProductCreateDto productCreateDto) {

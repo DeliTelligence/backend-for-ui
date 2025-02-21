@@ -45,6 +45,12 @@ public class Employee {
     @Column(name= "EMPLOYEE_PASSWORD", nullable = false)
     private String employeePassword;
 
+    @Column(name = "TOTAL_WASTE_PERCENTAGE")
+    private float totalWastePercentage;
+
+    @Column(name = "TOTAL_TRANSACTIONS")
+    private int totalTransactions;
+
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("employee-Sale")
     private List<DeliSale> sales;

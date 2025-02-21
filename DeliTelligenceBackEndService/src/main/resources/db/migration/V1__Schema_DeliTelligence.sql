@@ -92,24 +92,6 @@ CREATE TABLE TBL_INGREDIENT (
 
 
 
-CREATE TABLE TBL_FOOD_ALLERGEN (
-                                   ALLERGEN_ID UUID PRIMARY KEY ,
-                                   ALLERGEN_DESCRIPTION VARCHAR(1000),
-                                   ALLERGEN_NAME VARCHAR(200)
-
-
-
-);
-
-CREATE TABLE TBL_FOOD_ALLERGENS_DETAIL (
-                                           PRODUCT_ID UUID NOT NULL,
-                                           ALLERGEN_ID UUID NOT NULL,
-                                           FOREIGN KEY (PRODUCT_ID) REFERENCES TBL_PRODUCT(PRODUCT_ID),
-                                           FOREIGN KEY (ALLERGEN_ID) REFERENCES TBL_FOOD_ALLERGEN(ALLERGEN_ID)
-
-
-);
-
 
 CREATE TABLE TBL_SUPPLIER (
                               SUPPLIER_ID UUID PRIMARY KEY,
