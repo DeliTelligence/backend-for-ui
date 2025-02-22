@@ -4,6 +4,7 @@ import com.DeliTelligenceBackEndService.entitymodel.DeliSale;
 import com.DeliTelligenceBackEndService.entitymodel.mapper.DeliSaleMapper;
 import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.DailySaleDto;
 import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.DeliSaleFetchDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.QuantitySaleSplitDto;
 import com.DeliTelligenceBackEndService.helper.DateUtil;
 import org.springframework.stereotype.Service;
 
@@ -150,6 +151,17 @@ public class AnalysisService {
 
         }
         return totalSaleNumber;
+    }
+
+    public List<QuantitySaleSplitDto> getSalesByQuantity() {
+        List<DeliSale> sales = deliService.getAllSales();
+        List<QuantitySaleSplitDto> salesByQuantity = new ArrayList<>();
+
+        for (DeliSale sale : sales) {
+           QuantitySaleSplitDto quantitySaleSplitDto = deliSaleMapper.toQuantitySaleSplitDto(sale.getSalePrice(), sale.getQuantity());
+           salesByQuantity.add(quantitySaleSplitDto);
+        }
+        return salesByQuantity;
     }
 
 

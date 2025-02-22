@@ -2,6 +2,7 @@ package com.DeliTelligenceBackEndService.entitymodel.mapper;
 
 import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.DailySaleDto;
 import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.DeliSaleFetchDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.QuantitySaleSplitDto;
 import com.DeliTelligenceBackEndService.service.EmployeeService;
 import org.mapstruct.*;
 
@@ -31,6 +32,8 @@ public interface DeliSaleMapper {
     DeliSaleInputDto toDeliSaleInputDto(DeliSale deliSale);
 
     DeliSaleFetchDto toDeliSaleFetchDto(DeliSale deliSale);
+
+    QuantitySaleSplitDto toQuantitySaleSplitDto(float salesData, int quantityRepresented);
 
 
 }

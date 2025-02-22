@@ -13,6 +13,7 @@ type Query {
     getAllSalesByDate(startDate: String!, endDate: String!): [DailySaleDto]
     dailySalesTotal(date: String!): Float
     totalSales: Float!
+    getSalesByQuantity: [QuantitySaleSplitDto]
 
 }
 

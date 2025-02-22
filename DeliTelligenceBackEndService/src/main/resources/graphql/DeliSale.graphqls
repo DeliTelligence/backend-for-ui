@@ -6,6 +6,11 @@ type DailySaleDto {
 
 }
 
+type QuantitySaleSplitDto {
+    salesData: Float
+    quantityRepresented: Int
+}
+
 type DeliSaleFetchDto {
     saleDate: String!
     salePrice: Float!
