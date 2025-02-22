@@ -2,6 +2,7 @@ package com.DeliTelligenceBackEndService.controller;
 
 import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.DailySaleDto;
 import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.DeliSaleFetchDto;
+import com.DeliTelligenceBackEndService.entitymodeldto.delisaledto.QuantitySaleSplitDto;
 import com.DeliTelligenceBackEndService.service.AnalysisService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -30,4 +31,9 @@ public class AnalysisController {
     @QueryMapping
     public float totalSales(){
         return analysisService.totalSales();}
+
+    @QueryMapping
+    public List<QuantitySaleSplitDto> getSalesByQuantity(){
+        return analysisService.getSalesByQuantity();
+    }
 }
